@@ -68,7 +68,8 @@ const airportData = [
       { zh: "能给我一杯温水吗？", en: "Could I have a cup of warm water, please?" },
       { zh: "我觉得有点冷，能给我一条毛毯吗？", en: "I feel a bit cold. Could I have a blanket, please?" },
       { zh: "请问洗手间在哪里？", en: "Excuse me, where is the lavatory?" },
-      { zh: "请帮我把随身行李放上去/拿下来。", en: "Could you help me put my bag up / take my bag down?" },
+      { zh: "请帮我把随身行李放上去。", en: "Could you help me put my carry-on bag in the overhead bin?" },
+      { zh: "请帮我把随身行李拿下来。", en: "Could you help me take my carry-on bag down from the overhead bin?" },
       { zh: "我不舒服，需要帮助。", en: "I don't feel well and need help." }
     ]
   }
