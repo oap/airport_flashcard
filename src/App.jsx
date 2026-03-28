@@ -53,11 +53,11 @@ const airportData = [
     id: 'yvr-transit',
     title: '第三段：温哥华转机回国 (YVR to Beijing)',
     icon: <RefreshCcw size={20} />,
-    cards: [
+    cards: [      
       { zh: "我需要乘坐加拿大航空AC29到北京，请问我要去哪里托运行李？", en: "I need to take Air Canada flight AC29 to Beijing. Where do I drop off my luggage?" },
       { zh: "你好，我要办理AC29航班飞往北京的值机和托运。", en: "Hello, I need to check in and drop off my baggage for flight AC29 to Beijing." },
       { zh: "请问轮椅服务在哪里？我需要轮椅推我去AC29的登机口。", en: "Where is the wheelchair service? I need a wheelchair to take me to the gate for flight AC29." },
-      { zh: "请问AC29航班在几号登机口？", en: "Which gate is flight AC29 boarding at?" },
+      { zh: "请问AC29航班在几号登机口？是D55吗?", en: "Which gate is flight AC29 boarding at? Is it D55?" },
       { zh: "距离登机还有很久，请问附近有可以坐下休息的地方吗？", en: "There is a long time before boarding. Is there a place nearby where I can sit and rest?" },
       { zh: "什么时候开始登机？", en: "What time does boarding start?" }
     ]
