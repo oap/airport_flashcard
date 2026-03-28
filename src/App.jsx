@@ -75,7 +75,7 @@ const airportData = [
 ];
 
 export default function AirportFlashcards() {
-  const [viewMode, setViewMode] = useState('flashcard'); // 'flashcard' 或 'list'
+  const [viewMode, setViewMode] = useState('list'); // 'flashcard' 或 'list'
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -89,6 +89,18 @@ export default function AirportFlashcards() {
     setCurrentCategoryIndex(index);
     setCurrentCardIndex(0);
     setIsFlipped(false);
+  };
+
+  const handlePrevCategory = () => {
+    if (currentCategoryIndex > 0) {
+      handleCategoryChange(currentCategoryIndex - 1);
+    }
+  };
+
+  const handleNextCategory = () => {
+    if (currentCategoryIndex < airportData.length - 1) {
+      handleCategoryChange(currentCategoryIndex + 1);
+    }
   };
 
   // 切换上一张/下一张
@@ -137,16 +149,22 @@ export default function AirportFlashcards() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (viewMode !== 'flashcard') return; // 只有在闪卡模式下才响应键盘翻页
-      if (e.key === 'ArrowRight') handleNext();
-      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'ArrowRight' && currentCardIndex < currentCategory.cards.length - 1) {
+        setIsFlipped(false);
+        setTimeout(() => setCurrentCardIndex((prev) => prev + 1), 150);
+      }
+      if (e.key === 'ArrowLeft' && currentCardIndex > 0) {
+        setIsFlipped(false);
+        setTimeout(() => setCurrentCardIndex((prev) => prev - 1), 150);
+      }
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        toggleFlip();
+        setIsFlipped((prev) => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentCardIndex, currentCategoryIndex, viewMode]);
+  }, [currentCardIndex, currentCategoryIndex, currentCategory.cards.length, viewMode]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800 selection:bg-blue-200">
@@ -160,17 +178,17 @@ export default function AirportFlashcards() {
           </div>
           
           {/* 视图切换按钮 */}
-          <div className="flex items-center bg-blue-700/50 p-1 rounded-lg self-start sm:self-auto">
+          <div className="flex w-full sm:w-auto items-center bg-blue-700/50 p-1 rounded-lg self-start sm:self-auto">
             <button 
               onClick={() => setViewMode('flashcard')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'flashcard' ? 'bg-white text-blue-700 shadow-sm' : 'text-blue-100 hover:text-white'}`}
+              className={`flex flex-1 sm:flex-none items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${viewMode === 'flashcard' ? 'bg-white text-blue-700 shadow-sm' : 'text-blue-100 hover:text-white'}`}
             >
               <CreditCard size={18} />
               闪卡模式
             </button>
             <button 
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list' ? 'bg-white text-blue-700 shadow-sm' : 'text-blue-100 hover:text-white'}`}
+              className={`flex flex-1 sm:flex-none items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${viewMode === 'list' ? 'bg-white text-blue-700 shadow-sm' : 'text-blue-100 hover:text-white'}`}
             >
               <List size={18} />
               全部列表
@@ -185,12 +203,29 @@ export default function AirportFlashcards() {
           {/* 左侧：分类导航 (桌面端) / 顶部导航 (移动端) */}
           <div className="w-full md:w-64 flex flex-col gap-2 shrink-0">
             <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2 px-2">场景分类 Categories</h2>
+            <div className="md:hidden flex items-center justify-between gap-3 mb-2 px-2">
+              <button
+                onClick={handlePrevCategory}
+                disabled={currentCategoryIndex === 0}
+                className="flex items-center gap-1 px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft size={16} /> 上一场景
+              </button>
+              <span className="text-xs text-slate-500">左右滑动或点按钮切换</span>
+              <button
+                onClick={handleNextCategory}
+                disabled={currentCategoryIndex === airportData.length - 1}
+                className="flex items-center gap-1 px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                下一场景 <ChevronRight size={16} />
+              </button>
+            </div>
             <div className="flex md:flex-col overflow-x-auto pb-2 md:pb-0 gap-2 hide-scrollbar">
               {airportData.map((category, index) => (
                 <button
                   key={category.id}
                   onClick={() => handleCategoryChange(index)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl whitespace-nowrap md:whitespace-normal transition-all duration-200 text-left ${
+                  className={`flex items-center gap-3 px-4 py-4 md:py-3 min-h-[56px] rounded-xl whitespace-nowrap md:whitespace-normal transition-all duration-200 text-left ${
                     currentCategoryIndex === index 
                       ? 'bg-blue-100 text-blue-700 shadow-sm border border-blue-200 font-medium' 
                       : 'bg-white text-slate-600 hover:bg-slate-100 border border-transparent'
