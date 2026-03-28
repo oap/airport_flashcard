@@ -42,7 +42,8 @@ const airportData = [
     title: '第二段：温哥华到达与行李 (YVR Arrival)',
     icon: <Luggage size={20} />,
     cards: [
-      { zh: "我已经到了温哥华，请推我去提取行李的地方。", en: "I have arrived in Vancouver. Please push me to the baggage claim area." },
+      { zh: "请推我去提取行李的地方。", en: "Please push me to the baggage claim area." },
+      { zh: "这是我的机票，请帮我找我的行李。", en: "This is my boarding pass. Could you help me find my luggage?" },
       { zh: "我年纪大了拿不动行李，能帮我把行李从转盘上拿下来吗？", en: "I am elderly and cannot lift heavy things. Could you please help me take my luggage off the carousel?" },
       { zh: "我的行李还没出来，能帮我看看吗？", en: "My luggage hasn't come out yet. Could you help me check?" },
       { zh: "我需要在机场内休息，等待加航去北京的飞机，我在哪里等？", en: "I need to rest inside the airport and wait for my Air Canada flight to Beijing. Where can I wait?" }
@@ -53,6 +54,7 @@ const airportData = [
     title: '第三段：温哥华转机回国 (YVR to Beijing)',
     icon: <RefreshCcw size={20} />,
     cards: [
+      { zh: "我需要乘坐加拿大航空AC29到北京，请问我要去哪里托运行李？", en: "I need to take Air Canada flight AC29 to Beijing. Where do I drop off my luggage?" },
       { zh: "你好，我要办理AC29航班飞往北京的值机和托运。", en: "Hello, I need to check in and drop off my baggage for flight AC29 to Beijing." },
       { zh: "请问轮椅服务在哪里？我需要轮椅推我去AC29的登机口。", en: "Where is the wheelchair service? I need a wheelchair to take me to the gate for flight AC29." },
       { zh: "请问AC29航班在几号登机口？", en: "Which gate is flight AC29 boarding at?" },
